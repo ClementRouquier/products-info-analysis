@@ -1,0 +1,68 @@
+CRITICAL: Output only the structured analysis below. No extra text.
+
+Product DB Auditor (Concise Analysis & Score)
+Analyze the provided JSON product data. Identify all inconsistencies, contradictions, data quality issues (corruption, formatting), and areas lacking clarity. Group related findings into logical themes. Assign a data quality score based on the severity and number of issues (using adjusted points). Provide concise, actionable suggestions in a bulleted list, including corrected text where feasible.
+
+Scoring Methodology (Internal Guide for AI - Adjusted Points)
+Calculate a score out of 100. Start at 100 and deduct points for each distinct issue identified based on severity:
+
+Critical (10 pts): Major contradictions, data corruption losing meaning, incorrect essential info, security risks.
+High (6 pts): Significantly misleading/ambiguous info, multiple related language errors/omissions, functionality issues.
+Medium (3 pts): Minor inconsistencies, poor clarity, single language errors, non-critical formatting issues.
+Low (1 pt): Typos, minor aesthetic formatting.
+Sum all penalty points and subtract from 100. Minimum score is 0.
+
+Output Format
+Markdown
+
+## DATA QUALITY SCORE: [Score]/100
+* **Basis:** [Brief justification, e.g., "Deductions for critical redemption logic conflict and high-severity language corruption."]
+
+## KEY FINDINGS (Grouped & Prioritized)
+
+1.  **[Critical/High/Medium/Low] - [AI-Generated Theme Title, e.g., Redemption Method/Terms Conflict]**
+    * **Description:** [Concise technical summary, e.g., Mismatch between `redemptionMethods` array and restrictions in `terms`/`specialNote`.]
+    * **Affected Fields & Specific Problems:**
+        * `redemptionMethods`: [`["online", "instore"]`] (Severity: [Level])
+        * `terms`: [Excludes 'food sector' online] (Severity: [Level])
+        * `specialNote`: [Restricts grocery to instore, 'shopping mode' unclear online] (Severity: [Level])
+        * ... (List all related fields/problems concisely with severity)
+    * **Suggested Actions:**
+        * Align redemption logic: Define precise online/instore rules (e.g., by category).
+        * Update `redemptionMethods`, `terms`, `specialNote` consistently across languages.
+        * Clarify meaning of "shopping mode" in `specialNote.en/pt`.
+
+2.  **[Critical/High/Medium/Low] - [AI-Generated Theme Title, e.g., Language Content Quality Issues]**
+    * **Description:** [Concise technical summary, e.g., Data corruption, irrelevant content, incomplete translations.]
+    * **Affected Fields & Specific Problems:**
+        * `descriptions.it`: [Corrupted data string] (Severity: Critical)
+        * `descriptions.tr`: [Irrelevant content (mentions different brand)] (Severity: High)
+        * `instructions.[fr, ru, etc.]`: [Missing key steps from primary languages] (Severity: High)
+    * **Suggested Actions:**
+        * Regenerate `descriptions.it` content (provide if possible, else recommend review).
+        * Replace `descriptions.tr` with relevant text: '[Generated Turkish text, if feasible]'
+        * Expand `instructions` in secondary languages with essential details from `en`/`pt`.
+
+3.  **[Medium/Low] - [AI-Generated Theme Title, e.g., Data Formatting Issues]**
+    * **Description:** [Concise technical summary, e.g., Unintended HTML tags in text fields.]
+    * **Affected Fields & Specific Problems:**
+        * `descriptions.pt/en`: [Contains `<style>` tags] (Severity: Medium)
+        * `termsAndConditions`: [Contains `<br>` tags] (Severity: Low)
+    * **Suggested Actions:**
+        * Remove `<style>` tags from `descriptions.pt/en`.
+        * Replace `<br>` in `termsAndConditions` with standard formatting (paragraphs/lists).
+
+... *(Add all other identified themes following this concise format)*
+
+Analysis Focus Areas
+Identify all inconsistencies, correctness issues, lack of clarity, and incompleteness. Group findings into logical themes (e.g., Redemption Logic, Language Quality, Data Formatting, Clarity, Business Rules). Assess severity using the adjusted point scale. For each theme:
+
+Provide a concise technical description.
+List affected fields and the specific problem briefly.
+Offer direct, actionable suggestions in a bulleted list.
+Generate corrected text/translations within action bullets when feasible.
+
+JSON data for analysis:
+```json
+{json_data}
+Remember: Only the structured report above is required. Calculate the score based on identified issues using the adjusted points.
